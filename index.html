@@ -370,6 +370,19 @@
     .exp-card:hover .exp-badge:nth-child(6) { transition-delay: 300ms; }
     .exp-card:hover .exp-badge:nth-child(7) { transition-delay: 360ms; }
     .exp-card:hover .exp-badge:nth-child(8) { transition-delay: 420ms; }
+    @media (hover: none), (pointer: coarse) {
+      .exp-card.is-in-view .exp-badge {
+        opacity: 1; transform: translateX(0);
+      }
+      .exp-card.is-in-view .exp-badge:nth-child(1) { transition-delay: 0ms; }
+      .exp-card.is-in-view .exp-badge:nth-child(2) { transition-delay: 60ms; }
+      .exp-card.is-in-view .exp-badge:nth-child(3) { transition-delay: 120ms; }
+      .exp-card.is-in-view .exp-badge:nth-child(4) { transition-delay: 180ms; }
+      .exp-card.is-in-view .exp-badge:nth-child(5) { transition-delay: 240ms; }
+      .exp-card.is-in-view .exp-badge:nth-child(6) { transition-delay: 300ms; }
+      .exp-card.is-in-view .exp-badge:nth-child(7) { transition-delay: 360ms; }
+      .exp-card.is-in-view .exp-badge:nth-child(8) { transition-delay: 420ms; }
+    }
 
     /* Projects — accordion dropdowns */
     .projects-accordion {
@@ -1004,6 +1017,7 @@
                 <span>33% Cost Reduction</span>
                 <span>$210K Savings</span>                
                 <span>Power BI NPI Dashboard</span>
+              </div>
               <div class="exp-badges">
                 <span class="exp-badge">Should-Cost Modeling</span>
                 <span class="exp-badge">Semiconductor</span>
@@ -1011,6 +1025,8 @@
                 <span class="exp-badge">Power BI</span>
                 <span class="exp-badge">NPI Planning</span>
                 <span class="exp-badge">Demand Forecasting</span>
+              </div>
+            </div>
           </article>
           <article class="timeline-item">
             <div class="exp-card">
@@ -1034,6 +1050,8 @@
                 <span class="exp-badge">Power BI</span>
                 <span class="exp-badge">EV Infrastructure</span>
                 <span class="exp-badge">Agile</span>
+              </div>
+            </div>
           </article>
           <article class="timeline-item">
             <div class="exp-card">
@@ -1053,6 +1071,8 @@
                 <span class="exp-badge">IATF</span>
                 <span class="exp-badge">Strategic Sourcing</span>
                 <span class="exp-badge">Agile</span>
+              </div>
+            </div>
           </article>
           <article class="timeline-item">
             <div class="exp-card">
@@ -1075,7 +1095,11 @@
                 <span class="exp-badge">3D Printing</span>
                 <span class="exp-badge">Cost Management</span>
                 <span class="exp-badge">Leadership</span>
+              </div>
+            </div>
           </article>
+        </div>
+      </div>
     </section>
 
     <section class="section reveal" id="projects" aria-labelledby="proj-heading">
@@ -1544,6 +1568,16 @@
           }
         }, { threshold: 0.1 });
         obs.observe(el);
+      });
+
+      document.querySelectorAll('.exp-card').forEach(card => {
+        const obs = new IntersectionObserver(([e]) => {
+          if (e.isIntersecting) {
+            card.classList.add('is-in-view');
+            obs.unobserve(card);
+          }
+        }, { threshold: 0.25, rootMargin: '0px 0px -18% 0px' });
+        obs.observe(card);
       });
 
       document.querySelectorAll('[data-anim]').forEach(area => {
